@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image-generator</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    <div class="content">
+        <aside class="settings">
+            <h2>Настройки</h2>
+            <div class="block">
+                <span>Текст на майке</span>
+                <textarea class="settings__input" id="textarea"></textarea>
+            </div>
+            <div class="block">
+                <span>JPG, PNG</span>
+                <input type="file" id="download-input">
+                <p>Высота рисунка: <input type="range" min="10" max="100" id="size" value="100"></p>
+            </div>
+        </aside>
+        <div class="preview">
+            <h2>Превьюшка</h2>
+            <div class="preview__result">
+                <img class="img" src="./img/target.jpg">
+                <div class="preview__text">
+                    <img id="img-from-input" alt="" width="100%">
+                    <p class="preview__text-target"></p>
+                </div>
+            </div>
+            <input class="preview__button" type="button" value="Сохранить">
+            <div class="block result-block">
+                <h3>Результат</h3>
+                <div class="result"></div>
+            </div>
+        </div>
+        
+    </div>
+    <script src="./js/bundle.js"></script>
+</body>
+</html>
