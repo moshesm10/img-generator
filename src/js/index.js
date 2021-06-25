@@ -1,59 +1,137 @@
-import html2canvas from 'html2canvas'
+//import html2canvas from 'html2canvas';
+import CodeMirror from 'codemirror';
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const targetArea = document.querySelector('.preview__text');
-    const targetTextArea = document.querySelector('.preview__text-target');
-    const button = document.querySelector('.preview__button');
+    //const targetArea = document.querySelector('.preview__text');
+    const saveButton = document.querySelector('.preview__button');
+    const refreshPresetsButton = document.querySelector('.presets-block__button-refresh');
+    const presetsList = document.querySelector('.presets-block__list');
 
-    const controllSize = document.querySelector('#size');
+    //const resultBlock = document.querySelector('.result-block');
 
-    const downloadInput = document.querySelector('#download-input')
+    let doc = document.querySelector('#test').contentWindow.document;
+    const presetTitle = document.querySelector('#title-text');
 
-    const resultBlock = document.querySelector('.result-block');
-    const textInput = document.querySelector('.settings__input');
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,
+        styleActiveLine: true,
+        autoCloseBrackets: true,
+        autoCloseTags: true,
+        mode: 'htmlmixed',
+      });
+      
+      doc.open();
+      doc.write(editor.getValue());
+      doc.close();
+  
+      editor.on("change", () => {
+          doc.open();
+          doc.write(editor.getValue());
+          doc.close();
+      })
 
-    const imgFromInput = document.querySelector('#img-from-input');
-
-
-    const toBase64 = file => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-    
-    async function Main() {
-       const file = downloadInput.files[0];
-       console.log(await toBase64(file));
-       imgFromInput.setAttribute('src', await toBase64(file))
-    }
-
-    downloadInput.addEventListener('input', () => {
-        Main();
-    });
-
-    textInput.addEventListener('input', (e) => {
-        targetTextArea.innerText = textInput.value;
-    });
-
-    controllSize.addEventListener('input', (e) => {
-        imgFromInput.style.height = `${controllSize.value}%`;
-    });
-
-
-    button.addEventListener('click', () => {
-        html2canvas(targetArea)
+    saveButton.addEventListener('click', () => {
+        //console.log(doc.activeElement.innerHTML)
+            const presetHTML = doc.activeElement.innerHTML;
+            const formData = new FormData();
+            formData.append('html', presetHTML);
+            formData.append('title', presetTitle.value);
+            formData.append('action', 'save');
+            const options = {
+                method: 'POST',
+                body: formData,
+              };
+            fetch('./index.php', options)
+            .then(res => res.text())
+            .then(res => console.log(res))
+        
+            /* === Выгрузка изображения с помощью html2canvas ====
+        
+        html2canvas(doc, {
+            //useCORS: true,
+            scale:20
+        })
         .then(function (canvas) {
             const canvasImg = canvas.toDataURL("image/jpg");
             console.log(canvas)
             resultBlock.innerHTML += `<img src="${canvasImg}" style="border: 1px solid #000000" alt="">`
             resultBlock.style.display = 'block';
-        });
+        
 
+        });
+        
+    */
     });
 
+    const formData = new FormData();
+        formData.append('action', 'refresh');
+        const options = {
+            method: 'POST',
+            body: formData,
+          };
+        fetch('./index.php', options)
+        .then(res => res.json())
+        .then(res => {
+            presetsList.innerHTML = '';
+            res.forEach(preset => {
+                presetsList.innerHTML += `
+                    <input type="radio" id="preset${preset.id}" name="preset" value="${preset.id}">
+                    <label for="preset${preset.id}">${preset.title}</label>
+                `;
+            });
+        })
+
+    refreshPresetsButton.addEventListener('click', () => {
+        //console.log(doc.activeElement.innerHTML)
+        const formData = new FormData();
+        formData.append('action', 'refresh');
+        const options = {
+            method: 'POST',
+            body: formData,
+          };
+        fetch('./index.php', options)
+        .then(res => res.json())
+        .then(res => {
+            presetsList.innerHTML = '';
+            res.forEach(preset => {
+                presetsList.innerHTML += `
+                    <input type="radio" id="preset${preset.id}" name="preset" value="${preset.id}">
+                    <label for="preset${preset.id}">${preset.title}</label>
+                `;
+            });
+        })
+    })
+
+    presetsList.addEventListener('click', e => {
+        if (e.target.type === "radio") {
+            console.log(e.target);
+
+            const formData = new FormData();
+            formData.append('action', 'load');
+            formData.append('id', e.target.value);
+            const options = {
+                method: 'POST',
+                body: formData,
+            };
+            fetch('./index.php', options)
+            .then(res => res.json())
+            .then(res => {
+                doc.open();
+                doc.write(res[0].html);
+                doc.close();
+
+                editor.setValue(res[0].html)
+                presetTitle.value = res[0].title
+            })
+        }
+        
+    })
+
     
+
+    
+
 });
 
 

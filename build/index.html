@@ -6,19 +6,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image-generator</title>
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css" integrity="sha512-xIf9AdJauwKIVtrVRZ0i4nHP61Ogx9fSRAkCLecmE2dL/U8ioWpDvFCAy4dcfecN72HHB9+7FfQj3aiO68aaaw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
     <div class="content">
         <aside class="settings">
             <h2>Настройки</h2>
             <div class="block">
-                <span>Текст на майке</span>
-                <textarea class="settings__input" id="textarea"></textarea>
+                <h3>Название пресета</h3>
+                <input type="text" id="title-text" placeholder="Введи название пресета">
             </div>
             <div class="block">
-                <span>JPG, PNG</span>
-                <input type="file" id="download-input">
-                <p>Высота рисунка: <input type="range" min="10" max="100" id="size" value="100"></p>
+                <p>Разметка майки HTML/CSS</p>
+                <div class="code-container">
+                    <textarea id="code">
+<section>
+    <!-- Стили -->
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap"); 
+        .frame {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        img {
+            z-index: 0;
+            width: 55%
+        }
+        h1 {
+            color: #fff;            
+            font-size: 3em;
+            font-family: "Staatliches", cursive;     
+            margin-bottom: 0;
+        }
+        p {
+            color: #fff;
+            font-size: 2em;
+            font-family: "Staatliches", cursive;
+        }
+    </style>
+                        
+    <!-- HTML -->
+    <div class="frame">
+        
+        <h1>Minsk</h1>
+        <p>Born and raised</p>
+    </div>
+</section>
+                    </textarea>
+                </div>
+                <input class="preview__button" type="button" value="Сохранить пресет">
+            </div>
+            <h2>Пресеты</h2>
+            <div class="block presets-block">
+                <div class="presets-block__list">
+                </div>
+                <input class="presets-block__button-refresh" type="button" value="Обновить">
             </div>
         </aside>
         <div class="preview">
@@ -26,18 +70,18 @@
             <div class="preview__result">
                 <img class="img" src="./img/target.jpg">
                 <div class="preview__text">
-                    <img id="img-from-input" alt="" width="100%">
-                    <p class="preview__text-target"></p>
-                </div>
+                    <iframe class="result-output" id="test" frameBorder="0"></iframe>
             </div>
-            <input class="preview__button" type="button" value="Сохранить">
             <div class="block result-block">
                 <h3>Результат</h3>
                 <div class="result"></div>
             </div>
         </div>
-        
     </div>
+        
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js" integrity="sha512-i9pd5Q6ntCp6LwSgAZDzsrsOlE8SN+H5E0T5oumSXWQz5l1Oc4Kb5ZrXASfyjjqtc6Mg6xWbu+ePbbmiEPJlDg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/htmlmixed/htmlmixed.min.js" integrity="sha512-IC+qg9ITjo2CLFOTQcO6fBbvisTeJmiT5D5FnXsCptqY8t7/UxWhOorn2X+GHkoD1FNkyfnMJujt5PcB7qutyA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./js/bundle.js"></script>
 </body>
 </html>
