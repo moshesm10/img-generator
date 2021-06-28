@@ -70,7 +70,7 @@ function watch () {
     gulp.watch(path.watch.style, style);
     gulp.watch(path.watch.html, html);
     gulp.watch(path.watch.js, script);
-    //gulp.watch(path.watch.fonts, fonts);
+    gulp.watch(path.watch.fonts, fonts);
     gulp.watch(path.watch.img, image);
 }
 
@@ -78,14 +78,14 @@ async function build () {
     html();
     style();
     script();
-    //fonts();
+    fonts();
     image();
 }
 
 exports.html = html;
 exports.style = style;
 exports.script = script;
-//exports.fonts = fonts;
+exports.fonts = fonts;
 exports.image = image;
 exports.watch = watch;
 exports.build = build;

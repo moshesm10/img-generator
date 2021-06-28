@@ -1,4 +1,8 @@
 //import html2canvas from 'html2canvas';
+require('codemirror/mode/xml/xml');
+require('codemirror/mode/javascript/javascript');
+require('codemirror/mode/css/css');
+require('codemirror/mode/htmlmixed/htmlmixed');
 import CodeMirror from 'codemirror';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,11 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let doc = document.querySelector('#test').contentWindow.document;
     const presetTitle = document.querySelector('#title-text');
 
+
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
         styleActiveLine: true,
         autoCloseBrackets: true,
         autoCloseTags: true,
+        theme: 'ayu-dark',
         mode: 'htmlmixed',
       });
       
@@ -63,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
     */
     });
-
+/*
     const formData = new FormData();
         formData.append('action', 'refresh');
         const options = {
@@ -81,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             });
         })
-
+*/
     refreshPresetsButton.addEventListener('click', () => {
         //console.log(doc.activeElement.innerHTML)
         const formData = new FormData();
