@@ -55,6 +55,19 @@ button {
       align-items: center; }
       .block__menu .title-wrapper h3 {
         margin-right: 10px; }
+  .block__code-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 63px;
+    background: #191919;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+    .block__code-menu-preset-title {
+      min-width: 20em;
+      font-size: 18px;
+      background: none;
+      color: white;
+      border: none; }
 
 /* --------------
 	Блок контента
@@ -90,9 +103,20 @@ button {
   .settings label {
     display: block;
     padding: 10px;
-    border-radius: 4px; }
+    border-radius: 4px;
+    cursor: pointer; }
   .settings label:hover {
     background: #e4e4e4; }
+  .settings .settings__menu-button:hover {
+    background: #e4e4e4; }
+
+.button {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer; }
 
 /* ----------
 	Превьюшка
@@ -143,16 +167,12 @@ section {
   overflow: hidden;
   border-radius: 3px; }
 
-.preview__button {
-  width: 190px;
-  height: 50px;
-  background-color: #3fa704;
-  color: #fff;
-  border: none;
-  font-size: 13px;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2); }
+.save__button:hover,
+.delete__button:hover {
+  background-color: #000; }
+
+.save__button {
+  margin-right: 10px; }
 
 #title-text {
   height: 30px;
