@@ -40,6 +40,10 @@ label {
     font-family: 'als-hauss', sans-serif;
 }
 
+.active {
+    font-weight: 700;
+}
+
 body {
     background-color: #F7F7F7;
     margin: 0;
@@ -137,6 +141,10 @@ button {
 
     input[type="radio"] {
         display: none;
+
+        &:checked+label{ 
+            font-weight: 700; 
+        } 
     }
 
     label {
@@ -236,15 +244,6 @@ section {
 
 .save__button {
     margin-right: 10px;
-}
-
-
-// название пресета
-
-#title-text {
-    height: 30px;
-    width: 260px;
-    font-size: 15px;
 }
 
 /* --------------

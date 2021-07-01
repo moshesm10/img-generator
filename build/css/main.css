@@ -34,6 +34,9 @@ input,
 label {
   font-family: 'als-hauss', sans-serif; }
 
+.active {
+  font-weight: 700; }
+
 body {
   background-color: #F7F7F7;
   margin: 0;
@@ -100,6 +103,8 @@ button {
     border-radius: 4px; }
   .settings input[type="radio"] {
     display: none; }
+    .settings input[type="radio"]:checked + label {
+      font-weight: 700; }
   .settings label {
     display: block;
     padding: 10px;
@@ -173,11 +178,6 @@ section {
 
 .save__button {
   margin-right: 10px; }
-
-#title-text {
-  height: 30px;
-  width: 260px;
-  font-size: 15px; }
 
 /* --------------
 	Тема для редактора
