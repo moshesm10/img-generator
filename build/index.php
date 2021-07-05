@@ -29,7 +29,7 @@
             $query = "INSERT INTO `presets` (`title`, `html`) VALUES ('".$presetTitle."', '".$presetHTML."')";
             $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link)); 
             if($result) {
-            echo " :) ";
+                echo " :) ";
             }
             // закрываем подключение
             mysqli_close($link);
@@ -46,6 +46,20 @@
                 $presetsList[] = $data;
             }
             echo json_encode($presetsList);
+            // закрываем подключение
+            mysqli_close($link);
+            break;
+
+        case "delete":
+            $presetId = $_POST['id'];
+
+            $query = "DELETE FROM `presets` WHERE `id` = $presetId";
+            $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link)); 
+            $presetsList = array();
+
+            if($result) {
+                echo " :) ";
+            }
             // закрываем подключение
             mysqli_close($link);
             break;

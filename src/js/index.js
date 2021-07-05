@@ -7,6 +7,7 @@ import CodeMirror from 'codemirror';
 document.addEventListener('DOMContentLoaded', () => {
 
     const saveButton = document.querySelector('.save__button');
+    const deleteButton = document.querySelector('.delete__button');
     const presetsList = document.querySelector('.presets-block__list');
 
     let doc = document.querySelector('#test').contentWindow.document;
@@ -52,10 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     };
 
-    refreshPresetsList()
+    refreshPresetsList();
 
     saveButton.addEventListener('click', () => {
-        //console.log(doc.activeElement.innerHTML)
         const presetHTML = doc.activeElement.innerHTML;
         const formData = new FormData();
         formData.append('html', presetHTML);
@@ -73,6 +73,23 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     });
 
+    deleteButton.addEventListener('click', () => {
+        const presetId = presetTitle.dataset.idx;
+        
+        const formData = new FormData();
+        formData.append('action', 'delete');
+        formData.append('id', presetId);
+        const options = {
+          method: 'POST',
+          body: formData,
+        };
+        fetch('./index.php', options)
+        .then(res => res.text())
+        .then(res => {
+            console.log(res);
+            refreshPresetsList();
+        })
+    });
 
     presetsList.addEventListener('click', e => {
         if (e.target.type === "radio") {
@@ -93,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 editor.setValue(res[0].html)
                 presetTitle.value = res[0].title
+                presetTitle.dataset.idx = res[0].id
             })
         }
         
