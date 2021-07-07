@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveButton = document.querySelector('.save__button');
     const deleteButton = document.querySelector('.delete__button');
     const presetsList = document.querySelector('.presets-block__list');
+    const downloadButton = document.querySelector('.btn-download-preset__button');
+    
+    const downloadImg = document.querySelector('.download-img');
+    const spinner = document.getElementById("spinner");
 
     let doc = document.querySelector('#test').contentWindow.document;
     const presetTitle = document.querySelector('.block__code-menu-preset-title');
@@ -114,7 +118,34 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         }
         
-    })
+    });
+
+    downloadButton.addEventListener('click', e => {
+        e.preventDefault();
+        spinner.removeAttribute('hidden');
+        downloadImg.style.display = 'none';
+
+        const presetHTML = doc.activeElement.innerHTML;
+        const formData = new FormData();
+        formData.append('html', presetHTML);
+        const options = {
+            method: 'POST',
+            body: formData,
+        };
+        fetch('http://185.251.90.104/img-gen/api-generate-img.php', options)
+        .then(res => res.text())
+        .then(res => {
+            spinner.setAttribute('hidden', '');
+            downloadImg.style.display = '';
+            
+            const link = document.createElement('a');
+            link.setAttribute('href', res);
+            link.setAttribute('target', '_blank')
+            link.click();
+
+            console.log(res);
+        })
+    });
 
     
 
