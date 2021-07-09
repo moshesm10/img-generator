@@ -71,6 +71,9 @@ button {
       background: none;
       color: white;
       border: none; }
+  .block.bottom {
+    position: relative;
+    top: 52%; }
 
 /* --------------
 	Блок контента
@@ -114,6 +117,19 @@ button {
     background: #e4e4e4; }
   .settings .settings__menu-button:hover {
     background: #e4e4e4; }
+  .settings .link-to-generate-page {
+    display: block;
+    text-decoration: none;
+    height: 50px;
+    border-radius: 4px;
+    background: #e4e4e4;
+    cursor: pointer;
+    text-align: center;
+    line-height: 48px; }
+    .settings .link-to-generate-page:visited {
+      color: inherit; }
+    .settings .link-to-generate-page:hover {
+      background: #b3b3b3; }
 
 .button {
   width: 40px;
@@ -168,10 +184,15 @@ button {
     left: 15px;
     top: 16px; }
 
-#spinner:not([hidden]) {
+.btn-spinner {
   position: absolute;
   top: 9px;
-  left: 9px;
+  left: 9px; }
+
+.free-spinner {
+  transform: translateY(20vh); }
+
+#spinner:not([hidden]) {
   display: flex;
   justify-content: center;
   align-items: center; }
@@ -233,9 +254,9 @@ section {
 .save__button {
   margin-right: 10px; }
 
-/* --------------
+/* -------------------
 	Тема для редактора
------------------ */
+---------------------- */
 .cm-s-ayu-dark.CodeMirror {
   background: #191919;
   color: #b3b1ad; }
@@ -343,3 +364,33 @@ section {
 .cm-s-ayu-dark .CodeMirror-matchingbracket {
   text-decoration: underline;
   color: white !important; }
+
+/* ------------------------------------------
+	Страница настроек и генерации изображений
+--------------------------------------------- */
+/* ----------
+	Настройки
+------------- */
+.generate-settings-content {
+  display: flex; }
+  .generate-settings-content .choose-preset {
+    flex: 1; }
+  .generate-settings-content .set-variable {
+    flex: 2;
+    margin-left: 40px; }
+  .generate-settings-content .generated-img-result {
+    width: 50vw;
+    margin-left: 40px;
+    padding-left: 40px; }
+    .generate-settings-content .generated-img-result .imgs img {
+      width: 235px;
+      height: 320px;
+      background: #868686;
+      margin: 16px;
+      border-radius: 4px; }
+  .generate-settings-content .set-variable__city textarea,
+  .generate-settings-content .set-variable__img textarea {
+    width: 100%;
+    font-size: 14px;
+    border-radius: 4px;
+    background: inherit; }

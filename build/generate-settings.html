@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="origin">
+    <title>Image-generator | Настройка генерации</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    <div class="generate-settings-content">
+        <div class="wrapper choose-preset">
+            <div class="block block__menu ">
+                <div class="title-wrapper">
+                    <h3>1. Выбери пресет</h3>
+                </div>
+            </div>
+            <div class="settings">
+                <div class="block presets-block">
+                    <div class="presets-block__list">
+                        <input type="radio" id="preset13" name="preset" value="13">
+                        <label for="preset13">X —&nbsp;Born and raised</label>
+                        <input type="radio" id="preset14" name="preset" value="14">
+                        <label for="preset14">Это X</label>
+                        <input type="radio" id="preset15" name="preset" value="15">
+                        <label for="preset15">Test preset</label>
+                        <input type="radio" id="preset16" name="preset" value="16">
+                        <label for="preset16">X, sweet X</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="wrapper set-variable">
+            <div class="block block__menu">
+                <div class="title-wrapper">
+                    <h3>2. Настрой текст переменных</h3>
+                </div>
+            </div>
+            <div class="block">
+                <div class="set-variable__city">
+                    <p><b>[city]</b> – Название города (каждый с новой строчки)</p>
+                    <textarea name="city" id="city" cols="30" rows="10">Moscow
+Minsk
+Samara</textarea>
+                </div>
+                <div class="set-variable__img">
+                    <p><b>[img]</b> –  Ссылка на изображение (каждая с новой строчки)</p>
+                    <textarea name="img" id="img" cols="30" rows="10">https://sdelanounas.ru/i/a/w/1/f_aW1nLmdlbGlvcGhvdG8uY29tL3RvbXNrLzA0X3RvbXNrLmpwZz9fX2lkPTEyNTY2OA==.jpeg
+https://247510.selcdn.ru/mybiz-production/posts/images/posters/cadb20593bcd701d4c42f40132f416928fe30f12.jpg</textarea>
+                </div>
+            </div>
+            <button class="generate-img">Сгенерировать изображения</button>
+        </div>
+        
+        <div class="generated-img-result">
+            <div class="block block__menu">
+                <div class="title-wrapper">
+                    <h3>Сгенерированные изображения</h3>
+                </div>
+            </div>
+            <div class="imgs">
+            </div>
+            <div hidden id="spinner" class="free-spinner"></div>
+        </div>
+    </div>
+    <script src="./js/generate-settings.js"></script>
+</body>
+</html>

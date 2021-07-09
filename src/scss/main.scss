@@ -92,6 +92,11 @@ button {
             border: none;
         }
     }
+
+    &.bottom {
+        position: relative;
+        top: 52%;
+    }
 }
 
 /* --------------
@@ -160,6 +165,25 @@ button {
 
     .settings__menu-button:hover {
         background: #e4e4e4;
+    }
+
+    .link-to-generate-page {
+        display: block;
+        text-decoration: none;
+        height: 50px;
+        border-radius: 4px;
+        background: #e4e4e4;
+        cursor: pointer;
+        text-align: center;
+        line-height: 48px;
+
+        &:visited {
+            color: inherit;
+        }
+
+        &:hover {
+            background: #b3b3b3;
+        }
     }
 }
 
@@ -235,34 +259,41 @@ button {
 }
 
 // Spinner
-#spinner:not([hidden]) {
+.btn-spinner {
     position: absolute;
     top: 9px;
     left: 9px;
+}
+
+.free-spinner {
+    transform: translateY(20vh);
+}
+
+#spinner:not([hidden]) {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
   
-  #spinner::after {
-    content: "";
-    width: 24px;
-    height: 24px;
-    border: 2px solid #f3f3f3;
-    border-top: 3px solid #000000;
-    border-radius: 100%;
-    will-change: transform;
-    animation: spin 1s infinite linear
-  }
+#spinner::after {
+  content: "";
+  width: 24px;
+  height: 24px;
+  border: 2px solid #f3f3f3;
+  border-top: 3px solid #000000;
+  border-radius: 100%;
+  will-change: transform;
+  animation: spin 1s infinite linear
+}
   
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
   }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 /* --------------
 	Редактор кода
@@ -307,9 +338,9 @@ section {
     margin-right: 10px;
 }
 
-/* --------------
+/* -------------------
 	Тема для редактора
------------------ */
+---------------------- */
 .cm-s-ayu-dark.CodeMirror { background: #191919; color: #b3b1ad; }
 .cm-s-ayu-dark div.CodeMirror-selected { background: #273747; }
 .cm-s-ayu-dark .CodeMirror-line::selection, .cm-s-ayu-dark .CodeMirror-line > span::selection, .cm-s-ayu-dark .CodeMirror-line > span > span::selection { background: #DDF0FF33; }
@@ -351,4 +382,51 @@ section {
 .cm-s-ayu-dark .CodeMirror-matchingbracket {
   text-decoration: underline;
   color: white !important;
+}
+
+
+/* ------------------------------------------
+	Страница настроек и генерации изображений
+--------------------------------------------- */
+
+/* ----------
+	Настройки
+------------- */
+.generate-settings-content {
+    display: flex;
+
+    .choose-preset {
+        flex: 1;
+    }
+    
+    .set-variable {
+        flex: 2;
+        margin-left: 40px;
+    }
+
+    .generated-img-result {
+        width: 50vw;
+        margin-left: 40px;
+        padding-left: 40px;
+
+        .imgs {
+            img {
+                width: 235px;
+                height: 320px;
+                background: #868686;
+                margin: 16px;
+                border-radius: 4px;
+            }
+        }
+    }
+
+    .set-variable__city,
+    .set-variable__img {
+        textarea {
+            width: 100%;
+            font-size: 14px;
+            border-radius: 4px;
+            background: inherit;
+        }
+    }
 }

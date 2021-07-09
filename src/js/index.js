@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     refreshPresetsList();
 
     saveButton.addEventListener('click', () => {
-        const presetHTML = doc.activeElement.innerHTML;
+        const presetHTML = doc.firstChild.innerHTML;
         const formData = new FormData();
         formData.append('html', presetHTML);
         formData.append('title', presetTitle.value);
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         spinner.removeAttribute('hidden');
         downloadImg.style.display = 'none';
 
-        const presetHTML = doc.activeElement.innerHTML;
+        const presetHTML = doc.firstChild.innerHTML;
         const formData = new FormData();
         formData.append('html', presetHTML);
         const options = {
