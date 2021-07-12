@@ -26,6 +26,9 @@
             $presetHTML = $_POST['html'];
             $presetTitle = $_POST['title'];
 
+            $presetHTML = addslashes($presetHTML);
+            $presetTitle = addslashes($presetTitle);
+
             $query = "INSERT INTO `presets` (`title`, `html`) VALUES ('".$presetTitle."', '".$presetHTML."')";
             $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link)); 
             if($result) {

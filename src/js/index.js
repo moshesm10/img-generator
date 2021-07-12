@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let doc = document.querySelector('#test').contentWindow.document;
     const presetTitle = document.querySelector('.block__code-menu-preset-title');
 
+    const sideBar = document.querySelector('.settings');
+    const sideBarToggleButton = document.querySelector('#toggle-menu-btn')
+
 
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
@@ -147,7 +150,16 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     });
 
-    
+    // Скрыть/показать сайдбар
+    sideBarToggleButton.addEventListener('click', () => {
+        sideBar.classList.toggle('hidden');
+
+        if (sideBar.classList.contains('hidden')) {
+            sideBarToggleButton.querySelector('img').setAttribute('src', '../img/burger-btn.svg');
+        } else {
+            sideBarToggleButton.querySelector('img').setAttribute('src', '../img/close-btn.svg');
+        }
+    });
 
     
 

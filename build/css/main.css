@@ -72,8 +72,7 @@ button {
       color: white;
       border: none; }
   .block.bottom {
-    position: relative;
-    top: 52%; }
+    margin-top: 1em; }
 
 /* --------------
 	Блок контента
@@ -86,50 +85,73 @@ button {
 /* --------------------
 	Настройки и пресеты
 ----------------------- */
-.settings {
+.settings:not(.hidden) {
   flex: 1; }
-  .settings__menu-button {
-    background: none;
-    border: none; }
-    .settings__menu-button .button-plus {
-      width: 25px; }
-  .settings__search {
-    height: 34px;
-    padding: 8px 10px;
-    margin: 14px 0 24px 0;
-    box-sizing: border-box;
-    width: 100%;
-    color: rgba(0, 0, 0, 0.5);
-    background: #fff;
-    font-size: 15px;
-    border: 1px solid #333333;
-    border-radius: 4px; }
-  .settings input[type="radio"] {
+  .settings:not(.hidden) .settings__menu-button:hover {
+    background: #e4e4e4; }
+
+.settings__menu-button {
+  background: none;
+  border: none; }
+  .settings__menu-button .button-plus {
+    width: 25px; }
+
+.settings__search {
+  height: 34px;
+  padding: 8px 10px;
+  margin: 14px 0 24px 0;
+  box-sizing: border-box;
+  width: 100%;
+  color: rgba(0, 0, 0, 0.5);
+  background: #fff;
+  font-size: 15px;
+  border: 1px solid #333333;
+  border-radius: 4px; }
+
+.settings input[type="radio"] {
+  display: none; }
+  .settings input[type="radio"]:checked + label {
+    font-weight: 700; }
+
+.settings label {
+  display: block;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer; }
+
+.settings label:hover {
+  background: #e4e4e4; }
+
+.settings .link-to-generate-page {
+  display: block;
+  text-decoration: none;
+  height: 50px;
+  border-radius: 4px;
+  background: #e4e4e4;
+  cursor: pointer;
+  text-align: center;
+  line-height: 48px; }
+  .settings .link-to-generate-page:visited {
+    color: inherit; }
+  .settings .link-to-generate-page:hover {
+    background: #b3b3b3; }
+
+.settings.hidden {
+  height: 63px;
+  width: 60px;
+  background-color: #191919;
+  padding-bottom: 100%; }
+  .settings.hidden .search,
+  .settings.hidden .presets-block,
+  .settings.hidden .bottom {
     display: none; }
-    .settings input[type="radio"]:checked + label {
-      font-weight: 700; }
-  .settings label {
-    display: block;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer; }
-  .settings label:hover {
-    background: #e4e4e4; }
-  .settings .settings__menu-button:hover {
-    background: #e4e4e4; }
-  .settings .link-to-generate-page {
-    display: block;
-    text-decoration: none;
-    height: 50px;
-    border-radius: 4px;
-    background: #e4e4e4;
-    cursor: pointer;
-    text-align: center;
-    line-height: 48px; }
-    .settings .link-to-generate-page:visited {
-      color: inherit; }
-    .settings .link-to-generate-page:hover {
-      background: #b3b3b3; }
+  .settings.hidden .block__menu {
+    height: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+    .settings.hidden .block__menu .title-wrapper {
+      display: none; }
+    .settings.hidden .block__menu .settings__menu-button:hover {
+      background: #000; }
 
 .button {
   width: 40px;
@@ -150,7 +172,8 @@ button {
     position: relative; }
     .preview__result .img {
       width: 500px;
-      margin: 20px; }
+      margin: 20px;
+      mix-blend-mode: multiply; }
   .preview__text {
     position: absolute;
     top: 130px;
@@ -231,7 +254,6 @@ section {
   flex: 3;
   height: 100vh;
   overflow: hidden;
-  border-radius: 3px;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); }
 
 .code-container:last-child {
@@ -378,6 +400,20 @@ section {
   .generate-settings-content .set-variable {
     flex: 2;
     margin-left: 40px; }
+    .generate-settings-content .set-variable .generate-img {
+      position: relative;
+      height: 50px;
+      padding: 10px;
+      margin-top: 20px;
+      margin-left: 10px;
+      border: none;
+      border-radius: 4px;
+      background: #e4e4e4;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold; }
+      .generate-settings-content .set-variable .generate-img:hover {
+        background: #b3b3b3; }
   .generate-settings-content .generated-img-result {
     width: 50vw;
     margin-left: 40px;
@@ -388,9 +424,11 @@ section {
       background: #868686;
       margin: 16px;
       border-radius: 4px; }
-  .generate-settings-content .set-variable__city textarea,
-  .generate-settings-content .set-variable__img textarea {
+  .generate-settings-content .set-variable__city input,
+  .generate-settings-content .set-variable__img input {
+    padding: 10px;
     width: 100%;
     font-size: 14px;
     border-radius: 4px;
-    background: inherit; }
+    background: inherit;
+    border: 1px solid rgba(51, 51, 51, 0.3); }

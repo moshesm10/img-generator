@@ -29,44 +29,52 @@ presetsList.addEventListener('click', e => {
 
 // Генерация изображений
 generateImgBtn.addEventListener('click', () => {
-    spinner.removeAttribute('hidden');
 
-    // загрузка html
-    const formData = new FormData();
-    formData.append('action', 'load');
-    formData.append('id', document.querySelector('input[type="radio"]:checked').value);
-    const options = {
-        method: 'POST',
-        body: formData,
-    };
-    fetch('./index.php', options)
-    .then(res => res.json())
-    .then(res => {
-        
-        // здесь POST запрос на генерацию изображений
+    if (!document.querySelector('input[type="radio"]:checked')) {
+        alert('Выбери пресет для генерации изображения');
+    } else {
+
+        spinner.removeAttribute('hidden');
+
+        // загрузка html
         const formData = new FormData();
-        formData.append('html', res[0].html);
-        formData.append('city-text', cityText.value.split('\n'));
-        formData.append('img-text', imgText.value.split('\n'));
+        formData.append('action', 'load');
+        formData.append('id', document.querySelector('input[type="radio"]:checked').value);
         const options = {
             method: 'POST',
-            body: formData
+            body: formData,
         };
-        fetch('http://185.251.90.104/img-gen/api2-generate-img.php', options)
+        fetch('./index.php', options)
         .then(res => res.json())
         .then(res => {
-            console.log('output JSON: ', res);
-            generatedImgsArea.innerHTML = '';
-            spinner.setAttribute('hidden', '');
-
-            // Вывод изображений
-            res.forEach(imgUrl => {
-                console.log(imgUrl);
-                generatedImgsArea.innerHTML += `<img src="${imgUrl}" alt="Принт">`;
+            const printValues = {
+                city: cityText.value,
+                img: imgText.value
+            };
+    
+            // здесь POST запрос на генерацию изображений
+            const formData = new FormData();
+            formData.append('html', res[0].html);
+            formData.append('print-values', JSON.stringify(printValues));
+            formData.append('mode', 'preview');
+            const options = {
+                method: 'POST',
+                body: formData
+            };
+            fetch('http://185.251.90.104/img-gen/api4-generate-img.php', options)
+            .then(res => res.text())
+            .then(res => {
+                console.log('output text: ', res);
+                generatedImgsArea.innerHTML = '';
+                spinner.setAttribute('hidden', '');
+    
+                // Вывод изображений
+                generatedImgsArea.innerHTML += `<img src="${res}" alt="Принт">`;
+                
             });
-            
         });
-    });
+    };
+
 });
 
 // Обновить список пресетов
