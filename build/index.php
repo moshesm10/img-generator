@@ -37,6 +37,23 @@
             // закрываем подключение
             mysqli_close($link);
             break;
+        
+        case "update":
+            $presetHTML = $_POST['html'];
+            $presetTitle = $_POST['title'];
+            $presetId = $_POST['id'];
+
+            $presetHTML = addslashes($presetHTML);
+            $presetTitle = addslashes($presetTitle);
+
+            $query = "UPDATE `presets`  SET `title` = '".$presetTitle."', `html` = '".$presetHTML."' WHERE `id` = $presetId";
+            $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link)); 
+            if($result) {
+                echo " Пресет обновлен :) ";
+            }
+            // закрываем подключение
+            mysqli_close($link);
+            break;
             
         case "load":
             $presetId = $_POST['id'];

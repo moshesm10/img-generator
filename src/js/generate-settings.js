@@ -5,27 +5,34 @@ const generatedImgsArea = document.querySelector('.imgs');
 const generateImgBtn = document.querySelector('.generate-img');
 const spinner = document.getElementById("spinner");
 
-presetsList.addEventListener('click', e => {
-    if (e.target.type === "radio") {
-
-        const formData = new FormData();
+const getHtml = async (id) => {
+    const formData = new FormData();
         formData.append('action', 'load');
-        formData.append('id', e.target.value);
+        formData.append('id', id);
         const options = {
             method: 'POST',
             body: formData,
         };
-        fetch('./index.php', options)
-        .then(res => res.json())
-        .then(res => {
-            console.log('html', res[0].html);
-            console.log('title', res[0].title);
-            console.log('title', res[0].id);
-        })
-    }
-});
+        
+        return await fetch('./index.php', options);
+}
 
-//console.log(document.querySelector('input[type="radio"]:checked'));
+const getGeneratedImg = async (html, mode) => {
+    const printValues = {
+        city: cityText.value,
+        img: imgText.value
+    };
+
+    const formData = new FormData();
+    formData.append('html', html);
+    formData.append('print-values', JSON.stringify(printValues));
+    formData.append('mode', mode);
+    const options = {
+        method: 'POST',
+        body: formData
+    };
+    return await fetch('http://185.251.90.104/img-gen/api4-generate-img.php', options);
+};
 
 // Генерация изображений
 generateImgBtn.addEventListener('click', () => {
@@ -37,45 +44,65 @@ generateImgBtn.addEventListener('click', () => {
         spinner.removeAttribute('hidden');
 
         // загрузка html
-        const formData = new FormData();
-        formData.append('action', 'load');
-        formData.append('id', document.querySelector('input[type="radio"]:checked').value);
-        const options = {
-            method: 'POST',
-            body: formData,
-        };
-        fetch('./index.php', options)
+        getHtml(document.querySelector('input[type="radio"]:checked').value)
         .then(res => res.json())
         .then(res => {
-            const printValues = {
-                city: cityText.value,
-                img: imgText.value
-            };
-    
+
             // здесь POST запрос на генерацию изображений
-            const formData = new FormData();
-            formData.append('html', res[0].html);
-            formData.append('print-values', JSON.stringify(printValues));
-            formData.append('mode', 'preview');
-            const options = {
-                method: 'POST',
-                body: formData
-            };
-            fetch('http://185.251.90.104/img-gen/api4-generate-img.php', options)
-            .then(res => res.text())
-            .then(res => {
-                console.log('output text: ', res);
+            getGeneratedImg(res[0].html, 'preview')
+            .then(url => url.text())
+            .then(url => {
+                //console.log('output text: ', res);
                 generatedImgsArea.innerHTML = '';
                 spinner.setAttribute('hidden', '');
-    
+                console.log('Переменная на уровень выше (html)', res[0].html);
+                
                 // Вывод изображений
-                generatedImgsArea.innerHTML += `<img src="${res}" alt="Принт">`;
+                generatedImgsArea.innerHTML += `
+                    <img class="result-img" src="${url}" alt="Принт">
+                    <div class="btn-download-preset">
+                        <button class="btn-download-preset__button">
+                            Скачать в большом разрешении
+                            <img class="download-img" src="./img/download-btn.svg" alt="download button">
+                            <div hidden id="spinner" class="btn-spinner"></div>
+                        </button>
+                    </div>    
+                `;
+
+                renderBigImgButton(res[0].html);
                 
             });
         });
+        
     };
 
 });
+
+// Скачать в большом разрешении
+const renderBigImgButton = (html) => {
+    const downloadButton = document.querySelector('.btn-download-preset__button');
+    const downloadImg = document.querySelector('.download-img');
+
+    downloadButton.addEventListener('click', e => {
+        e.preventDefault();
+        spinner.removeAttribute('hidden');
+        downloadImg.style.display = 'none';
+
+        getGeneratedImg(html, 'big')
+        .then(res => res.text())
+        .then(res => {
+            spinner.setAttribute('hidden', '');
+            downloadImg.style.display = '';
+            
+            const link = document.createElement('a');
+            link.setAttribute('href', res);
+            link.setAttribute('target', '_blank')
+            link.click();
+
+            console.log(res);
+        })
+    });
+};
 
 // Обновить список пресетов
 const refreshPresetsList = () => {

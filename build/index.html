@@ -14,7 +14,7 @@
             <div class="block block__menu">
                 <div class="title-wrapper">
                     <h3>Пресеты</h3>
-                    <button class="button settings__menu-button" id="add-preset-btn"><img class="button-plus" src="./img/plus-btn.svg" alt="plus button"></button>
+                    <button class="button settings__menu-button create__button" id="add-preset-btn"><img class="button-plus" src="./img/plus-btn.svg" alt="plus button"></button>
                 </div>
                 <button class="button settings__menu-button" id="toggle-menu-btn"><img src="./img/close-btn.svg" alt="menu button"></button>
             </div>
@@ -45,45 +45,10 @@
                     <button class="button delete__button"><img src="./img/delete-btn.svg" alt="delete button"></button>
                 </div>
             </div>
-            <textarea id="code">
-<head>
-<!-- Подключаемые шрифты <link> -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"> 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
-</head>
-<section>
-    <!-- Стили -->
-    <style>
-        .frame {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        img {
-            z-index: 0;
-            width: 55%
-        }
-        h1 {
-            color: #fff;            
-            font-size: 3em;
-            font-family: "Staatliches", cursive;     
-            margin-bottom: 0;
-        }
-        p {
-            color: #fff;
-            font-size: 2em;
-            font-family: "Staatliches", cursive;
-        }
-    </style>
-                    
-    <!-- HTML -->
-    <div class="frame">
-        <h1>Minsk</h1>
-        <p>Born and raised</p>
-    </div>
-</section>
-            </textarea>
+            <div class="block tags">
+                <span class="tags__available-tags">Доступные теги: <b>[city]</b>, <b>[img]</b> - как атрибут src</span>
+            </div>
+            <textarea id="code"></textarea>
         </div>
         <div class="preview">
             <div class="preview__result">
@@ -91,14 +56,6 @@
                 <div class="preview__text">
                     <iframe class="result-output" id="test" frameBorder="0"></iframe>
             </div>
-        </div>
-        <div class="btn-download-preset">
-            <button class="btn-download-preset__button">
-                Скачать пресет
-                <img class="download-img" src="./img/download-btn.svg" alt="download button">
-                <div hidden id="spinner" class="btn-spinner"></div>
-            </button>
-            
         </div>
     </div>
     <script src="./js/bundle.js"></script>

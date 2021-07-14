@@ -140,7 +140,7 @@ button {
   height: 63px;
   width: 60px;
   background-color: #191919;
-  padding-bottom: 100%; }
+  padding-bottom: 100vh; }
   .settings.hidden .search,
   .settings.hidden .presets-block,
   .settings.hidden .bottom {
@@ -185,14 +185,10 @@ button {
       width: 100%; }
 
 .btn-download-preset {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center; }
+  margin-left: 15px; }
   .btn-download-preset__button {
     position: relative;
-    width: 150px;
+    width: 235px;
     height: 50px;
     border: none;
     border-radius: 4px;
@@ -246,13 +242,20 @@ button {
 /* --------------
 	Редактор кода
 ----------------- */
+.tags {
+  padding: 10px 15px;
+  background: #191919;
+  font-family: 'als-hauss', sans-serif;
+  color: #dbdbdb; }
+  .tags span {
+    font-size: 12px; }
+
 section {
   position: relative; }
 
 .code-container {
   position: relative;
   flex: 3;
-  height: 100vh;
   overflow: hidden;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); }
 
@@ -415,10 +418,9 @@ section {
       .generate-settings-content .set-variable .generate-img:hover {
         background: #b3b3b3; }
   .generate-settings-content .generated-img-result {
-    width: 50vw;
-    margin-left: 40px;
+    width: 30vw;
     padding-left: 40px; }
-    .generate-settings-content .generated-img-result .imgs img {
+    .generate-settings-content .generated-img-result .imgs .result-img {
       width: 235px;
       height: 320px;
       background: #868686;

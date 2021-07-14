@@ -8,11 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const saveButton = document.querySelector('.save__button');
     const deleteButton = document.querySelector('.delete__button');
+    const createPresetButton = document.querySelector('.create__button');
     const presetsList = document.querySelector('.presets-block__list');
-    const downloadButton = document.querySelector('.btn-download-preset__button');
-    
-    const downloadImg = document.querySelector('.download-img');
-    const spinner = document.getElementById("spinner");
 
     let doc = document.querySelector('#test').contentWindow.document;
     const presetTitle = document.querySelector('.block__code-menu-preset-title');
@@ -57,17 +54,72 @@ document.addEventListener('DOMContentLoaded', () => {
                   <label for="preset${preset.id}">${preset.title}</label>
               `;
           });
+
+          presetsList.lastElementChild.click();
       });
     };
 
     refreshPresetsList();
 
+    createPresetButton.addEventListener('click', () => {
+
+        const defaultHtml = `<head>
+    <!-- Подключаемые шрифты <link> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section>
+        <!-- Стили -->
+        <style>
+            .frame {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            h1 {
+                color: #fff;
+                font-size: 2em;
+                font-family: 'Montserrat', sans-serif;    
+                margin-bottom: 0;
+            }
+        </style>
+                        
+        <!-- HTML -->
+        <div class="frame">                    
+            <h1>Текст с городом [city]</h1>
+        </div>
+    </section>
+</body>`;
+
+        const formData = new FormData();
+        formData.append('html', defaultHtml);
+        formData.append('title', 'Безымянный пресет');
+        formData.append('action', 'save');
+        const options = {
+            method: 'POST',
+            body: formData,
+        };
+        fetch('./index.php', options)
+        .then(res => res.text())
+        .then(res => {
+            console.log('Создан пресет', res);
+
+            refreshPresetsList();
+        })
+    });
+
     saveButton.addEventListener('click', () => {
         const presetHTML = doc.firstChild.innerHTML;
+        const presetId = presetTitle.dataset.idx;
+
         const formData = new FormData();
         formData.append('html', presetHTML);
         formData.append('title', presetTitle.value);
-        formData.append('action', 'save');
+        formData.append('id', presetId);
+        formData.append('action', 'update');
+
         const options = {
             method: 'POST',
             body: formData,
@@ -121,33 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         }
         
-    });
-
-    downloadButton.addEventListener('click', e => {
-        e.preventDefault();
-        spinner.removeAttribute('hidden');
-        downloadImg.style.display = 'none';
-
-        const presetHTML = doc.firstChild.innerHTML;
-        const formData = new FormData();
-        formData.append('html', presetHTML);
-        const options = {
-            method: 'POST',
-            body: formData,
-        };
-        fetch('http://185.251.90.104/img-gen/api-generate-img.php', options)
-        .then(res => res.text())
-        .then(res => {
-            spinner.setAttribute('hidden', '');
-            downloadImg.style.display = '';
-            
-            const link = document.createElement('a');
-            link.setAttribute('href', res);
-            link.setAttribute('target', '_blank')
-            link.click();
-
-            console.log(res);
-        })
     });
 
     // Скрыть/показать сайдбар
