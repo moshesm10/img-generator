@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     saveButton.addEventListener('click', () => {
-        const presetHTML = doc.firstChild.innerHTML;
+        const presetHTML = editor.getValue();
         const presetId = presetTitle.dataset.idx;
 
         const formData = new FormData();
