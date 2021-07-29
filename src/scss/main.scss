@@ -85,7 +85,7 @@ button {
         border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 
         &-preset-title {
-            min-width: 20em;
+            min-width: 50%;
             font-size: 18px;
             background: none;
             color: white;
@@ -366,8 +366,22 @@ section {
 }
 
 .save__button:hover,
-.delete__button:hover {
+.delete__button:hover,
+.production__button:hover {
         background-color: #000;
+}
+
+.production__button {
+    position: relative;
+    margin-left: 15px;
+
+    &::before {
+        content: "";
+        position: absolute;
+        height: 25px;
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        left: -10px;
+    }
 }
 
 .save__button {

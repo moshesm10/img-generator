@@ -1,4 +1,4 @@
-const presetsList = document.querySelector('.presets-block__list');
+/*const presetsList = document.querySelector('.presets-block__list');
 const cityText = document.querySelector('#city');
 const imgText = document.querySelector('#img');
 const generatedImgsArea = document.querySelector('.imgs');
@@ -126,3 +126,8 @@ const refreshPresetsList = () => {
   };
 
   refreshPresetsList();
+*/
+
+export const cons = () => {
+    console.log('module generate-settings active!');
+}

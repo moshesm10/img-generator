@@ -3,7 +3,9 @@ require('codemirror/mode/javascript/javascript');
 require('codemirror/mode/css/css');
 require('codemirror/mode/htmlmixed/htmlmixed');
 import CodeMirror from 'codemirror';
+import {cons} from './generate-settings';
 
+cons();
 document.addEventListener('DOMContentLoaded', () => {
 
     const saveButton = document.querySelector('.save__button');
