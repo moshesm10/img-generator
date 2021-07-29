@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const saveButton = document.querySelector('.save__button');
     const deleteButton = document.querySelector('.delete__button');
+    const productionButton = document.querySelector('.production__button');
     const createPresetButton = document.querySelector('.create__button');
     const presetsList = document.querySelector('.presets-block__list');
 

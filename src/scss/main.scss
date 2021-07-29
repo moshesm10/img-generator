@@ -336,6 +336,78 @@ button {
     }
 }
 
+// Всплывающее окно с подтверждением действия
+.popup-accept {
+    position: absolute;
+    background-color: #fff;
+    right: 10px;
+    top: 55px;
+    width: 250px;
+    border-radius: 4px;
+    padding: 15px 0 0 0;
+    z-index: 5;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
+
+    p, span {
+        text-align: center;
+    }
+
+    p {
+        font-size: 14px;
+        padding: 0 15px;
+    }
+
+    span, &__button {
+        font-family: 'als-hauss', sans-serif;
+        font-weight: 500;
+    }
+
+    &__buttons {
+        display: flex;
+        border-top: 0.5px solid #CACACA;
+    }
+
+    &__button {
+        position: relative;
+        flex: 1;
+        height: 40px;
+        border: none;
+        background-color: transparent;
+        border-radius: 0;
+        
+
+        font-size: 14px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #e4e4e4;
+            border-radius: 0 0 4px 4px;
+        }
+
+        &-cancel {
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                border-right: 0.5px solid #CACACA;
+                height: 40px;
+            }
+        }
+
+        &-accept {
+            color: #E74C3C;
+        }
+    }
+
+
+}
+
 // Обертка/контейнер блока с редактором кода
 section {
 	position: relative;
