@@ -46,6 +46,9 @@ button {
   padding: 0;
   margin: 0; }
 
+.hide {
+  visibility: hidden; }
+
 .block {
   padding: 0 12px; }
   .block__menu {
@@ -114,10 +117,22 @@ button {
     font-weight: 700; }
 
 .settings label {
+  position: relative;
   display: block;
   padding: 10px;
   border-radius: 4px;
-  cursor: pointer; }
+  cursor: pointer;
+  margin-left: 18px; }
+  .settings label.published::before {
+    content: "";
+    position: absolute;
+    display: block;
+    left: -18px;
+    top: 12px;
+    width: 20px;
+    height: 20px;
+    background-image: url("../img/world.svg");
+    background-repeat: no-repeat; }
 
 .settings label:hover {
   background: #e4e4e4; }

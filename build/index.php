@@ -25,11 +25,12 @@
         case "save":
             $presetHTML = $_POST['html'];
             $presetTitle = $_POST['title'];
+            $presetPublished = $_POST['published'];
 
             $presetHTML = addslashes($presetHTML);
             $presetTitle = addslashes($presetTitle);
 
-            $query = "INSERT INTO `presets` (`title`, `html`) VALUES ('".$presetTitle."', '".$presetHTML."')";
+            $query = "INSERT INTO `presets` (`title`, `html`, `published`) VALUES ('".$presetTitle."', '".$presetHTML."', '".$presetPublished."')";
             $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link)); 
             if($result) {
                 echo " :) ";
@@ -42,11 +43,12 @@
             $presetHTML = $_POST['html'];
             $presetTitle = $_POST['title'];
             $presetId = $_POST['id'];
+            $presetPublished = $_POST['published'];
 
             $presetHTML = addslashes($presetHTML);
             $presetTitle = addslashes($presetTitle);
 
-            $query = "UPDATE `presets`  SET `title` = '".$presetTitle."', `html` = '".$presetHTML."' WHERE `id` = $presetId";
+            $query = "UPDATE `presets`  SET `title` = '".$presetTitle."', `html` = '".$presetHTML."', `published` = '".$presetPublished."' WHERE `id` = $presetId";
             $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link)); 
             if($result) {
                 echo " Пресет обновлен :) ";

@@ -3,9 +3,8 @@ require('codemirror/mode/javascript/javascript');
 require('codemirror/mode/css/css');
 require('codemirror/mode/htmlmixed/htmlmixed');
 import CodeMirror from 'codemirror';
-import {cons} from './generate-settings';
+import { displayPopup } from './popup';
 
-cons();
 document.addEventListener('DOMContentLoaded', () => {
 
     const saveButton = document.querySelector('.save__button');
@@ -18,7 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const presetTitle = document.querySelector('.block__code-menu-preset-title');
 
     const sideBar = document.querySelector('.settings');
-    const sideBarToggleButton = document.querySelector('#toggle-menu-btn')
+    const sideBarToggleButton = document.querySelector('#toggle-menu-btn');
+
+    const popup = document.querySelector('.popup-accept');
+    const globeIconSvg = document.querySelector('.globe-icon');
 
 
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
@@ -52,10 +54,19 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(res => {
           presetsList.innerHTML = '';
           res.forEach(preset => {
-              presetsList.innerHTML += `
+              if (preset.published == 1) {
+                console.log('preset.published', preset.published);
+
+                presetsList.innerHTML += `
+                  <input type="radio" id="preset${preset.id}" name="preset" value="${preset.id}">
+                  <label class="published" for="preset${preset.id}">${preset.title}</label>
+                `;
+              } else {
+                presetsList.innerHTML += `
                   <input type="radio" id="preset${preset.id}" name="preset" value="${preset.id}">
                   <label for="preset${preset.id}">${preset.title}</label>
-              `;
+                `;
+              };
           });
 
           presetsList.lastElementChild.click();
@@ -99,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData();
         formData.append('html', defaultHtml);
         formData.append('title', 'Безымянный пресет');
+        formData.append('published', 0);
         formData.append('action', 'save');
         const options = {
             method: 'POST',
@@ -113,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     });
 
-    saveButton.addEventListener('click', () => {
+    const savePreset = (publishedStatus = presetTitle.dataset.published) => {
         const presetHTML = editor.getValue();
         const presetId = presetTitle.dataset.idx;
 
@@ -121,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('html', presetHTML);
         formData.append('title', presetTitle.value);
         formData.append('id', presetId);
+        formData.append('published', publishedStatus);
         formData.append('action', 'update');
 
         const options = {
@@ -132,10 +145,15 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => {
             console.log(res);
             refreshPresetsList();
-        })
+        });
+
+    }
+
+    saveButton.addEventListener('click', () => {
+        savePreset();
     });
 
-    deleteButton.addEventListener('click', () => {
+    const deletePreset = () => {
         const presetId = presetTitle.dataset.idx;
         
         const formData = new FormData();
@@ -150,7 +168,13 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => {
             console.log(res);
             refreshPresetsList();
-        })
+        });
+
+        console.log('action', 'удалить пресет');
+    };
+
+    deleteButton.addEventListener('click', () => {
+        displayPopup(popup, 'Удалить принт?', 'Восстановить пресет будет невозможно', 'delete print', deletePreset);
     });
 
     presetsList.addEventListener('click', e => {
@@ -171,9 +195,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 doc.close();
 
                 editor.setValue(res[0].html)
-                presetTitle.value = res[0].title
-                presetTitle.dataset.idx = res[0].id
+                presetTitle.value = res[0].title;
+                presetTitle.dataset.idx = res[0].id;
+                presetTitle.dataset.published = res[0].published;
+
+                if (res[0].published == 1) {
+                    globeIconSvg.firstElementChild.attributes.fill.value = '#2ECC71';
+                    globeIconSvg.classList.add('active');
+                } else {
+                    globeIconSvg.firstElementChild.attributes.fill.value = 'red';
+                    globeIconSvg.classList.remove('active');
+                }
             })
+
+            popup.classList.add('hide');
         }
         
     });
@@ -186,6 +221,16 @@ document.addEventListener('DOMContentLoaded', () => {
             sideBarToggleButton.querySelector('img').setAttribute('src', '../img/burger-btn.svg');
         } else {
             sideBarToggleButton.querySelector('img').setAttribute('src', '../img/close-btn.svg');
+        }
+    });
+
+    // Кнопка публикации принта
+    productionButton.addEventListener('click', () => {
+        const isActive = globeIconSvg.classList.contains('active');
+        if (isActive) {
+            displayPopup(popup, 'Изъять принт?', 'Вы всегда сможете добавить принт в выдачу', 'remove post', savePreset, 0);
+        } else {
+            displayPopup(popup, 'Добавить принт?', 'Вы всегда сможете изъять принт из выдачи', 'post', savePreset, 1);
         }
     });
 

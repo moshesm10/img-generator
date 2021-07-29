@@ -55,6 +55,10 @@ button {
     margin: 0;
 }
 
+.hide {
+    visibility: hidden;
+}
+
 .block {
     //margin: 20px 20px 20px 0;
     //padding: 20px 20px 20px 0;
@@ -159,10 +163,24 @@ button {
     }
 
     label {
+        position: relative;
         display: block;
         padding: 10px;
         border-radius: 4px;
         cursor: pointer;
+        margin-left: 18px;
+
+        &.published::before {
+            content: "";
+            position: absolute;
+            display: block;
+            left: -18px;
+            top: 12px;
+            width: 20px;
+            height: 20px;
+            background-image: url('../img/world.svg');
+            background-repeat: no-repeat;
+        }
     }
 
     label:hover {
