@@ -1,7 +1,7 @@
 export const displayPopup = (selector, title, text, action, actionFunction, parameter) => {
     // Очистка старых кнопок
     selector.removeChild(selector.lastElementChild);
-    
+
     selector.children[0].innerText = title;
     selector.children[1].innerText = text;
 

@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tagsButton.addEventListener('click', () => {
         tagsBlockAnim();
     });
-
+    
 });
 
 
