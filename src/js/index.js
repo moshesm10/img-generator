@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const popup = document.querySelector('.popup-accept');
     const globeIconSvg = document.querySelector('.globe-icon');
 
+    const tagsBlock = document.querySelector('.tags');
+    const tagsButton = document.querySelector('.tags__button');
 
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
@@ -234,7 +236,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    
+    const tagsBlockAnim = () => {
+        const arrowIcon = tagsButton.lastElementChild;
+        
+        if (arrowIcon.classList.contains('up')) {
+            arrowIcon.classList.remove('up');
+            tagsBlock.style.bottom = '0';
+        } else {
+            arrowIcon.classList.add('up');
+            tagsBlock.style.bottom = `-${tagsBlock.clientHeight - 64}px`;
+        }
+    };
+
+    tagsButton.lastElementChild.classList.add('up');
+    tagsBlock.style.bottom = `-${tagsBlock.clientHeight - 64}px`;
+
+    // Кнопка открытия/закрытия шторки с тегами
+    tagsButton.addEventListener('click', () => {
+        tagsBlockAnim();
+    });
 
 });
 

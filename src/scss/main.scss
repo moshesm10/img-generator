@@ -344,14 +344,40 @@ button {
 
 // Доступные теги
 .tags {
+    position: absolute;
+    //bottom: -30px;
+    left: 0;
+    z-index: 10;
+    width: 100%;
     padding: 10px 15px;
-    background: #191919;
+    background: #000;
     font-family: 'als-hauss', sans-serif;
     color: rgb(219, 219, 219);
+
+    transition: .5s;
 
     span {
         font-size: 12px;
     }
+
+    &__button {
+        position: absolute;
+        left: 50%;
+        width: 30px;
+        height: 20px;
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+
+    &__arrow-icon {
+        width: 30px;
+
+        &.up {
+            transform: rotate(180deg);
+        }
+    }
+
 }
 
 // Всплывающее окно с подтверждением действия
@@ -434,9 +460,11 @@ section {
 .code-container {
 	position: relative;
     flex: 3;
-    //height: 100vh;
 	overflow: hidden;
 	box-shadow: 3px 3px 6px rgba(0, 0, 0, .3);
+
+    padding-bottom: 124px;
+    height: calc(100vh - 124px);
 }
 .code-container:last-child {
 	margin-bottom: 0;
@@ -444,7 +472,7 @@ section {
 
 // Поле редактора на всю высоту
 .cm-s-ayu-dark.CodeMirror  {
-    height: 100vh;
+    height: calc(100vh - 124px);
 }
 
 .result-output {

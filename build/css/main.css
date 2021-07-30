@@ -258,12 +258,29 @@ button {
 	Редактор кода
 ----------------- */
 .tags {
+  position: absolute;
+  left: 0;
+  z-index: 10;
+  width: 100%;
   padding: 10px 15px;
-  background: #191919;
+  background: #000;
   font-family: 'als-hauss', sans-serif;
-  color: #dbdbdb; }
+  color: #dbdbdb;
+  transition: .5s; }
   .tags span {
     font-size: 12px; }
+  .tags__button {
+    position: absolute;
+    left: 50%;
+    width: 30px;
+    height: 20px;
+    border: none;
+    background: none;
+    cursor: pointer; }
+  .tags__arrow-icon {
+    width: 30px; }
+    .tags__arrow-icon.up {
+      transform: rotate(180deg); }
 
 .popup-accept {
   position: absolute;
@@ -318,13 +335,15 @@ section {
   position: relative;
   flex: 3;
   overflow: hidden;
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); }
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  padding-bottom: 124px;
+  height: calc(100vh - 124px); }
 
 .code-container:last-child {
   margin-bottom: 0; }
 
 .cm-s-ayu-dark.CodeMirror {
-  height: 100vh; }
+  height: calc(100vh - 124px); }
 
 .result-output {
   position: relative;
