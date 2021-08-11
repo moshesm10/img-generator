@@ -1,12 +1,9 @@
 <?php
-
+    // Подключение доступа к БД
     include 'connect.php';
-
+    
+    // Получение действия из генератора
     $action = $_POST['action'];
-
-    //if (!$presetTitle) {
-    //    $presetTitle = 'Empty title'
-    //}
 
     switch ($action) {
         case "refresh":

@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const tagsBlock = document.querySelector('.tags');
     const tagsButton = document.querySelector('.tags__button');
 
+    const refreshButton = document.querySelector('.refresh__button');
+
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
         styleActiveLine: true,
@@ -256,6 +258,24 @@ document.addEventListener('DOMContentLoaded', () => {
         tagsBlockAnim();
     });
     
+    // Подстановка данных в превью
+    const data = ['Россия', 'New-York', 'Красногвардейская', 'Самара', '1905–года', 'Балашиха', 'LA', 'London'];
+
+    const setVariable = () => {
+        const htmlSource = editor.getValue();
+        const randomValue = data[Math.floor(Math.random() * data.length)];
+
+        const re = /\[city\]/gi;
+        const newHtml = htmlSource.replace(re, randomValue);
+
+        doc.open();
+        doc.write(newHtml);
+        doc.close();
+    };
+
+    refreshButton.addEventListener('click', setVariable);
+    
+
 });
 
 
