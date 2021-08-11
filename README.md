@@ -14,3 +14,8 @@
 build/api/index.php – Шмот обращается к этому файлу для получения ссылки на изображение
 
 build/api/html-handler.php – Генератор изображений обращается к этому файлу для получения HTML разметки
+
+## Схема работы
+<img width="696" alt="Frame 18" src="https://user-images.githubusercontent.com/64380989/129013110-ef0b2d85-7b93-495e-8acb-a55bf8d60fac.png">
+
+
