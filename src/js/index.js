@@ -259,17 +259,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Подстановка данных в превью
-    const data = ['Россия', 'New-York', 'Красногвардейская', 'Самара', '1905–года', 'Балашиха', 'LA', 'London'];
+    const data = {
+        'country'  : ['Россия', 'Норвегия', 'Коста-Рика',],
+        'state'    : ['Москва', 'Самарская область',],
+        'district' : ['Кировский район', 'Ленинский район',],
+        'city'     : ['Самара', 'New-York', 'Балашиха', 'LA', 'London'],
+        'street'   : ['Красногвардейская', '1905–года',],
+        'house'    : ['98', '53',],
+    };
 
     const setVariable = () => {
-        const htmlSource = editor.getValue();
-        const randomValue = data[Math.floor(Math.random() * data.length)];
+        let html = editor.getValue();
 
-        const re = /\[city\]/gi;
-        const newHtml = htmlSource.replace(re, randomValue);
+
+        Object.keys(data).map(function(objectKey, index) {
+            const arr = data[objectKey];
+            const randomValue = arr[Math.floor(Math.random() * arr.length)];
+            let re = '\\['+objectKey+'\\]';
+            re=new RegExp(re,'gi');
+            html = html.replace(re, randomValue);
+        });
 
         doc.open();
-        doc.write(newHtml);
+        doc.write(html);
         doc.close();
     };
 

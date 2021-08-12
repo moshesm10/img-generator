@@ -10,12 +10,14 @@ $requestData = $input ? json_decode($input, true) : $_REQUEST;
 $txt = $requestData['city'];
 
 // Запрос случайного (опубликованного) пресета из БД
-function getHTML($link) {
+function getHTML($link,$requestTags=[]) {
     $query = "SELECT * FROM `presets` WHERE `published` = 1";
     $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link)); 
     $presetsList = array();
 
     while ($data = mysqli_fetch_assoc($result)) {
+        $usedTags=getUsedTags($data['html']);// вывести в отдельное поле и фильтровать при запросе
+        if(count(array_intersect($usedTags, $requestTags))!=count($usedTags))continue;
         $presetsList[] = $data;
     };
 
@@ -25,10 +27,19 @@ function getHTML($link) {
 
     return $presetsList[$presetId]['html'];
 };
+function getUsedTags($html):array{
+    $ret=[];
+    $re = '/(\[\w*\])/m';
+    preg_match_all($re, $html, $matches, PREG_PATTERN_ORDER , 0);
+    foreach ($matches[0] as $tag){
+        $ret[$tag]=str_replace(['[',']'], '', $tag);
+    }
+    return $ret;
+}
 
-
+$requestData['all']=implode(' ', $requestData);
 // Заменяем теги на данные из запроса
-$html = getHTML($link);
+$html = getHTML($link,array_keys($requestData));
 foreach ($requestData as $tag => $value) {
     $html = str_replace('['. $tag .']', $value, $html);
 }
