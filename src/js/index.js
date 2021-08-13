@@ -266,6 +266,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'city'     : ['Самара', 'New-York', 'Балашиха', 'LA', 'London'],
         'street'   : ['Красногвардейская', '1905–года',],
         'house'    : ['98', '53',],
+        'lat'    : ['56.1070855', ],
+        'lon'    : ['47.2630737', ],
     };
 
     const setVariable = () => {

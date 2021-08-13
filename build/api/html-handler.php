@@ -8,9 +8,11 @@ include '../connect.php';
 $input = file_get_contents('php://input');
 $requestData = $input ? json_decode($input, true) : $_REQUEST;
 $txt = $requestData['city'];
+$salt = $requestData['salt'];
+unset($requestData['salt']);
 
 // Запрос случайного (опубликованного) пресета из БД
-function getHTML($link,$requestTags=[]) {
+function getHTML($link,$requestTags=[],$salt=false) {
     $query = "SELECT * FROM `presets` WHERE `published` = 1";
     $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link)); 
     $presetsList = array();
@@ -22,8 +24,13 @@ function getHTML($link,$requestTags=[]) {
     };
 
     mysqli_close($link);
-        
-    $presetId = rand(0, count($presetsList) - 1);
+
+    if($salt){
+        $presetId = $salt% (count($presetsList) - 1);
+    }else{
+        $presetId = rand(0, count($presetsList) - 1);
+    }
+
 
     return $presetsList[$presetId]['html'];
 };
@@ -39,7 +46,7 @@ function getUsedTags($html):array{
 
 $requestData['all']=implode(' ', $requestData);
 // Заменяем теги на данные из запроса
-$html = getHTML($link,array_keys($requestData));
+$html = getHTML($link,array_keys($requestData),$salt);
 foreach ($requestData as $tag => $value) {
     $html = str_replace('['. $tag .']', $value, $html);
 }
