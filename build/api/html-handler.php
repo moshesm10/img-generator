@@ -8,8 +8,8 @@ include '../connect.php';
 $input = file_get_contents('php://input');
 $requestData = $input ? json_decode($input, true) : $_REQUEST;
 $txt = $requestData['city'];
-$salt = $requestData['salt'];
-unset($requestData['salt']);
+$salt = $requestData['templateRand'];
+unset($requestData['templateRand']);
 
 // Запрос случайного (опубликованного) пресета из БД
 function getHTML($link,$requestTags=[],$salt=false) {
@@ -26,7 +26,7 @@ function getHTML($link,$requestTags=[],$salt=false) {
     mysqli_close($link);
 
     if($salt){
-        $presetId = $salt% (count($presetsList) - 1);
+        $presetId = $salt% count($presetsList);
     }else{
         $presetId = rand(0, count($presetsList) - 1);
     }
