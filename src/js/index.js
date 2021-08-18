@@ -268,6 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'house'    : ['98', '53',],
         'lat'    : ['56.1070855', ],
         'lon'    : ['47.2630737', ],
+        'flag'    : ['https://alslocation.srv.design.ru/api/g/f/flag/png/ru.png', ],
+        'gerb'    : ['https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Coat_of_Arms_of_Moscow.svg/800px-Coat_of_Arms_of_Moscow.svg.png', ],
     };
 
     const setVariable = () => {

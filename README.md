@@ -19,3 +19,7 @@ build/api/html-handler.php – Генератор изображений обр�
 <img width="696" alt="Frame 18" src="https://user-images.githubusercontent.com/64380989/129013110-ef0b2d85-7b93-495e-8acb-a55bf8d60fac.png">
 
 
+
+## работа с node.js
+'gulp watch' все изменения по фронту собираются в build, php уже там
+
