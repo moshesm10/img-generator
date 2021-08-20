@@ -259,29 +259,84 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Подстановка данных в превью
-    const data = {
-        'country'  : ['Россия', 'Норвегия', 'Коста-Рика',],
-        'state'    : ['Москва', 'Самарская область',],
-        'district' : ['Кировский район', 'Ленинский район',],
-        'city'     : ['Самара', 'New-York', 'Балашиха', 'LA', 'London'],
-        'street'   : ['Красногвардейская', '1905–года',],
-        'house'    : ['98', '53',],
-        'lat'    : ['56.1070855', ],
-        'lon'    : ['47.2630737', ],
-        'flag'    : ['https://alslocation.srv.design.ru/api/g/f/flag/png/ru.png', ],
-        'gerb'    : ['https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Coat_of_Arms_of_Moscow.svg/800px-Coat_of_Arms_of_Moscow.svg.png', ],
-    };
+    const data = [
+        {
+            country:'Россия',
+            state:'Московская область',
+            district:'Старый город',
+            city:'Жуковский',
+            street:'Пушкина',
+            house:'22',
+            lat:'55.588781',
+            lon:'38.119767',
+            flag:'./img/presets/zhu/flag.svg',
+            gerb:'./img/presets/zhu/gerb.svg',
+            bg:'./img/presets/zhu/bg.jpg',
+        },
+        {
+            country:'Россия',
+            state:'СЗФО',
+            district:'Петроградский',
+            city:'Санкт-Петербург',
+            street:'Константиновский проспект',
+            house:'18',
+            lat:'59.971929',
+            lon:'30.269479',
+            flag:'./img/presets/spb/flag.svg',
+            gerb:'./img/presets/spb/gerb.svg',
+            bg:'./img/presets/spb/bg.jpg',
+        },
+        {
+            country:'United States',
+            state:'California',
+            district:'Skid Row',
+            city:'Los-Angeles',
+            street:'South Main Street',
+            house:'610',
+            lat:'34.044886',
+            lon:'-118.249939',
+            flag:'./img/presets/Los-Angeles/flag.svg',
+            gerb:'./img/presets/Los-Angeles/gerb.svg',
+            bg:'./img/presets/Los-Angeles/bg.jpg',
+        },
+        {
+            country:'Deutschland',
+            state:'Bayern',
+            district:'Donau-Ries',
+            city:'Nordlingen',
+            street:'Augsburger Str.',
+            house:'50',
+            lat:'48.8428669',
+            lon:'10.5054286',
+            flag:'./img/presets/Nordlingen/flag.svg',
+            gerb:'./img/presets/Nordlingen/gerb.svg',
+            bg:'./img/presets/Nordlingen/bg.jpg',
+        },
+        {
+            country:'Brazil',
+            state:'Santa Catarina',
+            district:'Salto Norte',
+            city:'Blumenau',
+            street:'R. Mauritania',
+            house:'31',
+            lat:'-26.880234',
+            lon:'-49.1228882',
+            flag:'./img/presets/Blumenau/flag.svg',
+            gerb:'./img/presets/Blumenau/gerb.jpg',
+            bg:'./img/presets/Blumenau/bg.jpg',
+        },
+    ];
 
     const setVariable = () => {
         let html = editor.getValue();
 
+        const dataVal=data[Math.floor(Math.random() * data.length)];
 
-        Object.keys(data).map(function(objectKey, index) {
-            const arr = data[objectKey];
-            const randomValue = arr[Math.floor(Math.random() * arr.length)];
+        Object.keys(dataVal).map(function(objectKey, index) {
+            const val = dataVal[objectKey];
             let re = '\\['+objectKey+'\\]';
             re=new RegExp(re,'gi');
-            html = html.replace(re, randomValue);
+            html = html.replace(re, val);
         });
 
         doc.open();
