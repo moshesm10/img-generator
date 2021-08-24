@@ -181,83 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
         displayPopup(popup, 'Удалить принт?', 'Восстановить пресет будет невозможно', 'delete print', deletePreset);
     });
 
-    presetsList.addEventListener('click', e => {
-        if (e.target.type === "radio") {
-
-            const formData = new FormData();
-            formData.append('action', 'load');
-            formData.append('id', e.target.value);
-            const options = {
-                method: 'POST',
-                body: formData,
-            };
-            fetch('./index.php', options)
-            .then(res => res.json())
-            .then(res => {
-                doc.open();
-                doc.write(res[0].html);
-                doc.close();
-
-                editor.setValue(res[0].html)
-                presetTitle.value = res[0].title;
-                presetTitle.dataset.idx = res[0].id;
-                presetTitle.dataset.published = res[0].published;
-
-                if (res[0].published == 1) {
-                    globeIconSvg.firstElementChild.attributes.fill.value = '#2ECC71';
-                    globeIconSvg.classList.add('active');
-                } else {
-                    globeIconSvg.firstElementChild.attributes.fill.value = 'red';
-                    globeIconSvg.classList.remove('active');
-                }
-            })
-
-            popup.classList.add('hide');
-        }
-        
-    });
-
-    // Скрыть/показать сайдбар
-    sideBarToggleButton.addEventListener('click', () => {
-        sideBar.classList.toggle('hidden');
-
-        if (sideBar.classList.contains('hidden')) {
-            sideBarToggleButton.querySelector('img').setAttribute('src', '../img/burger-btn.svg');
-        } else {
-            sideBarToggleButton.querySelector('img').setAttribute('src', '../img/close-btn.svg');
-        }
-    });
-
-    // Кнопка публикации принта
-    productionButton.addEventListener('click', () => {
-        const isActive = globeIconSvg.classList.contains('active');
-        if (isActive) {
-            displayPopup(popup, 'Изъять принт?', 'Вы всегда сможете добавить принт в выдачу', 'remove post', savePreset, 0);
-        } else {
-            displayPopup(popup, 'Добавить принт?', 'Вы всегда сможете изъять принт из выдачи', 'post', savePreset, 1);
-        }
-    });
-
-    const tagsBlockAnim = () => {
-        const arrowIcon = tagsButton.lastElementChild;
-        
-        if (arrowIcon.classList.contains('up')) {
-            arrowIcon.classList.remove('up');
-            tagsBlock.style.bottom = '0';
-        } else {
-            arrowIcon.classList.add('up');
-            tagsBlock.style.bottom = `-${tagsBlock.clientHeight - 64}px`;
-        }
-    };
-
-    tagsButton.lastElementChild.classList.add('up');
-    tagsBlock.style.bottom = `-${tagsBlock.clientHeight - 64}px`;
-
-    // Кнопка открытия/закрытия шторки с тегами
-    tagsButton.addEventListener('click', () => {
-        tagsBlockAnim();
-    });
-    
     // Подстановка данных в превью
     const data = [
         {
@@ -345,6 +268,85 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     refreshButton.addEventListener('click', setVariable);
+
+    presetsList.addEventListener('click', e => {
+        if (e.target.type === "radio") {
+
+            const formData = new FormData();
+            formData.append('action', 'load');
+            formData.append('id', e.target.value);
+            const options = {
+                method: 'POST',
+                body: formData,
+            };
+            fetch('./index.php', options)
+            .then(res => res.json())
+            .then(res => {
+                doc.open();
+                doc.write(res[0].html);
+                doc.close();
+
+                editor.setValue(res[0].html)
+                presetTitle.value = res[0].title;
+                presetTitle.dataset.idx = res[0].id;
+                presetTitle.dataset.published = res[0].published;
+
+                if (res[0].published == 1) {
+                    globeIconSvg.firstElementChild.attributes.fill.value = '#2ECC71';
+                    globeIconSvg.classList.add('active');
+                } else {
+                    globeIconSvg.firstElementChild.attributes.fill.value = 'red';
+                    globeIconSvg.classList.remove('active');
+                }
+
+                setVariable();
+            })
+
+            popup.classList.add('hide');
+        }
+        
+    });
+
+    // Скрыть/показать сайдбар
+    sideBarToggleButton.addEventListener('click', () => {
+        sideBar.classList.toggle('hidden');
+
+        if (sideBar.classList.contains('hidden')) {
+            sideBarToggleButton.querySelector('img').setAttribute('src', '../img/burger-btn.svg');
+        } else {
+            sideBarToggleButton.querySelector('img').setAttribute('src', '../img/close-btn.svg');
+        }
+    });
+
+    // Кнопка публикации принта
+    productionButton.addEventListener('click', () => {
+        const isActive = globeIconSvg.classList.contains('active');
+        if (isActive) {
+            displayPopup(popup, 'Изъять принт?', 'Вы всегда сможете добавить принт в выдачу', 'remove post', savePreset, 0);
+        } else {
+            displayPopup(popup, 'Добавить принт?', 'Вы всегда сможете изъять принт из выдачи', 'post', savePreset, 1);
+        }
+    });
+
+    const tagsBlockAnim = () => {
+        const arrowIcon = tagsButton.lastElementChild;
+        
+        if (arrowIcon.classList.contains('up')) {
+            arrowIcon.classList.remove('up');
+            tagsBlock.style.bottom = '0';
+        } else {
+            arrowIcon.classList.add('up');
+            tagsBlock.style.bottom = `-${tagsBlock.clientHeight - 64}px`;
+        }
+    };
+
+    tagsButton.lastElementChild.classList.add('up');
+    tagsBlock.style.bottom = `-${tagsBlock.clientHeight - 64}px`;
+
+    // Кнопка открытия/закрытия шторки с тегами
+    tagsButton.addEventListener('click', () => {
+        tagsBlockAnim();
+    });
     
 
 });

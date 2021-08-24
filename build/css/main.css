@@ -194,7 +194,8 @@ button {
     top: 130px;
     left: 150px;
     width: 235px;
-    height: 320px; }
+    height: 320px;
+    outline: 1px dotted rgba(210, 210, 210, 0.3); }
     .preview__text p {
       display: block;
       width: 100%; }
