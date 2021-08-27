@@ -193,8 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
             lat:'55.588781',
             lon:'38.119767',
             flag:'./img/presets/zhu/flag.svg',
-            gerb:'./img/presets/zhu/gerb.svg',
-            bg:'./img/presets/zhu/bg.jpg',
+            coats:'./img/presets/zhu/gerb.svg',
+            location:'./img/presets/zhu/bg.jpg',
         },
         {
             country:'Россия',
@@ -206,8 +206,8 @@ document.addEventListener('DOMContentLoaded', () => {
             lat:'59.971929',
             lon:'30.269479',
             flag:'./img/presets/spb/flag.svg',
-            gerb:'./img/presets/spb/gerb.svg',
-            bg:'./img/presets/spb/bg.jpg',
+            coats:'./img/presets/spb/gerb.svg',
+            location:'./img/presets/spb/bg.jpg',
         },
         {
             country:'United States',
@@ -219,8 +219,8 @@ document.addEventListener('DOMContentLoaded', () => {
             lat:'34.044886',
             lon:'-118.249939',
             flag:'./img/presets/Los-Angeles/flag.svg',
-            gerb:'./img/presets/Los-Angeles/gerb.svg',
-            bg:'./img/presets/Los-Angeles/bg.jpg',
+            coats:'./img/presets/Los-Angeles/gerb.svg',
+            location:'./img/presets/Los-Angeles/bg.jpg',
         },
         {
             country:'Deutschland',
@@ -232,8 +232,8 @@ document.addEventListener('DOMContentLoaded', () => {
             lat:'48.8428669',
             lon:'10.5054286',
             flag:'./img/presets/Nordlingen/flag.svg',
-            gerb:'./img/presets/Nordlingen/gerb.svg',
-            bg:'./img/presets/Nordlingen/bg.jpg',
+            coats:'./img/presets/Nordlingen/gerb.svg',
+            location:'./img/presets/Nordlingen/bg.jpg',
         },
         {
             country:'Brazil',
@@ -245,8 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
             lat:'-26.880234',
             lon:'-49.1228882',
             flag:'./img/presets/Blumenau/flag.svg',
-            gerb:'./img/presets/Blumenau/gerb.jpg',
-            bg:'./img/presets/Blumenau/bg.jpg',
+            coats:'./img/presets/Blumenau/gerb.jpg',
+            location:'./img/presets/Blumenau/bg.jpg',
         },
     ];
 
